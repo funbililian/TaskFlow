@@ -28,10 +28,25 @@ app.get("/health", (req, res) => {
   });
 });
 
+// Connect to MongoDB before handling API requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed:", error.message);
+
+    res.status(503).json({
+      success: false,
+      message: "Database connection failed",
+    });
+  }
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// Vercel serverless entry point
+ // Vercel serverless entry point
 app.use(async (req, res, next) => {
   try {
     await connectDB();
