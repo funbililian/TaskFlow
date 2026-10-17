@@ -49,12 +49,13 @@ The app includes a landing page, registration and login forms, a task dashboard,
 | --- | --- |
 | Frontend | React 19, Vite 8, JavaScript, CSS, React Router |
 | Backend | Node.js, Express.js, CommonJS |
-| Database | MongoDB, Mongoose |
+| Database | MongoDB Atlas, Mongoose JWT |
 | Authentication | JSON Web Tokens (`jsonwebtoken`), `bcryptjs` |
 | API communication | Browser Fetch API |
 | Development | npm, Nodemon, VS Code |
 | API testing | Thunder Client or another REST API client |
 | Database inspection | MongoDB Compass |
+| Deployment | Vercel |
 
 ## Project structure
 
@@ -168,14 +169,6 @@ The backend reads these variables from `backend\.env`:
 | `PORT` | Port used by the backend; defaults to `5000` if omitted. | `5000` |
 | `MONGODB_URI` | MongoDB connection string used by Mongoose. | `mongodb://127.0.0.1:27017/taskflow` |
 | `JWT_SECRET` | Secret used to sign and verify authentication tokens. Use a long, random value. | `replace-with-a-long-random-secret` |
-
-Safe `backend\.env.example` template (placeholders only):
-
-```dotenv
-PORT=5000
-MONGODB_URI=mongodb://127.0.0.1:27017/taskflow
-JWT_SECRET=replace-with-a-long-random-secret
-```
 
 
 The frontend currently uses the fixed API base URL `http://localhost:5000/api` in `src\services\api.js`. It does **not** currently read `VITE_API_BASE_URL`; configuring a Vite environment variable with a localhost fallback would require a code change before using a separately hosted API.
