@@ -7,7 +7,6 @@ TaskFlow is a full-stack task management application for organizing daily work. 
 - [Overview](#overview)
 - [Features](#features)
 - [Technology stack](#technology-stack)
-- [Screenshots](#screenshots)
 - [Project structure](#project-structure)
 - [Prerequisites](#prerequisites)
 - [Installation and setup](#installation-and-setup)
@@ -56,18 +55,6 @@ The app includes a landing page, registration and login forms, a task dashboard,
 | Development | npm, Nodemon, VS Code |
 | API testing | Thunder Client or another REST API client |
 | Database inspection | MongoDB Compass |
-
-## Screenshots
-
-Replace these placeholder image paths with screenshots of the running application. The screenshot files are not included in the repository.
-
-<!-- Replace the placeholder images with real screenshots before publishing. -->
-
-![TaskFlow landing page screenshot placeholder](./screenshots/landing-page.png)
-
-![TaskFlow dashboard screenshot placeholder](./screenshots/dashboard.png)
-
-![TaskFlow profile page screenshot placeholder](./screenshots/profile.png)
 
 ## Project structure
 
@@ -144,7 +131,7 @@ npm --version
 Replace the example URL with the actual GitHub repository URL:
 
 ```powershell
-git clone https://github.com/<YOUR_USERNAME>/<YOUR_REPOSITORY>.git
+git clone https://github.com/funbililian/taskflow.git
 Set-Location .\<YOUR_REPOSITORY>
 ```
 
@@ -190,7 +177,6 @@ MONGODB_URI=mongodb://127.0.0.1:27017/taskflow
 JWT_SECRET=replace-with-a-long-random-secret
 ```
 
-The repository currently does not include a `backend\.env.example` file. You can use the template above to create `backend\.env` locally; if you add a shareable example file, keep it limited to placeholder values. The backend's `.gitignore` excludes `.env`. Never commit real secrets, database credentials, or tokens to GitHub.
 
 The frontend currently uses the fixed API base URL `http://localhost:5000/api` in `src\services\api.js`. It does **not** currently read `VITE_API_BASE_URL`; configuring a Vite environment variable with a localhost fallback would require a code change before using a separately hosted API.
 
