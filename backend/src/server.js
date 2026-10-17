@@ -8,9 +8,16 @@ const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://taskflow-navy-five.vercel.app",
+    ],
+  })
+);
+
 app.use(express.json());
 
 app.get("/health", (req, res) => {
@@ -24,12 +31,33 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
-const startServer = async () => {
-  await connectDB();
+// Vercel serverless entry point
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(503).json({
+      success: false,
+      message: "Database connection failed",
+    });
+  }
+});
 
-  app.listen(PORT, () => {
-    console.log(`TaskFlow server running at http://localhost:${PORT}`);
-  });
-};
+// Local development only
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
 
-startServer();
+  connectDB()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`TaskFlow server running on port ${PORT}`);
+      });
+    })
+    .catch((error) => {
+      console.error("Unable to start server:", error.message);
+      process.exitCode = 1;
+    });
+}
+
+module.exports = app;
